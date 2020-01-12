@@ -1,0 +1,72 @@
+apiVersion: "apps/v1"
+kind: Deployment
+metadata:
+  name: hello
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello
+
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+        - name: hello
+          image: "eu.gcr.io/PROJECT_ID/hello-impl:1.0-SNAPSHOT"
+          imagePullPolicy: Always
+          env:
+            - name: JAVA_OPTS
+              value: '-Xms256m -Xmx256m -Dconfig.resource=prod-application.conf'
+            - name: APPLICATION_SECRET
+              value: "changeme"
+            - name: REQUIRED_CONTACT_POINT_NR
+              value: "3"
+            - name: CASSANDRA_CONTACT_POINT
+              value: "cassandra"
+            - name: KAFKA_SERVICE_NAME
+              value: "_kafka-port._tcp.kafka-service"
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 0.25
+              memory: 512Mi
+          ports:
+            - name: management
+              containerPort: 8558
+          readinessProbe:
+            httpGet:
+              path: "/ready"
+              port: management
+            periodSeconds: 10
+            failureThreshold: 10
+            initialDelaySeconds: 20
+          livenessProbe:
+            httpGet:
+              path: "/alive"
+              port: management
+            periodSeconds: 10
+            failureThreshold: 10
+            initialDelaySeconds: 20
+      dnsPolicy: ClusterFirst
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello
+  labels:
+    app: hello
+spec:
+  ports:
+    - port: 80
+      name: http
+      protocol: TCP
+      targetPort: 9000
+  selector:
+    app: hello
+  type:
+    LoadBalancer
