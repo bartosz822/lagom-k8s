@@ -214,7 +214,7 @@ Wejdź na stronę https://www.websocket.org/echo.html i w polu location wpisz: `
 
 3. Testowanie współpracy 
 
-Użyj narzędzia  `C``URL` i wyślij zapytanie `POST` zmieniające wiadomość.
+Użyj narzędzia  `cURL` i wyślij zapytanie `POST` zmieniające wiadomość.
 
     curl -X POST \
       http://EXTERNAL_IP/api/hello/world \
