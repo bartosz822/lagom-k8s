@@ -33,7 +33,7 @@ Na komputerze z którego wykonywane będą polecenia należy mieć zainstalowane
 3. Kilknij utwórz klaster i wybierz szablon klaster standardowy
 4. W formularzu wybierz nastepujące opcje
     1. W polu **nazwa** wpisz nazwę jaką chcesz przydzielić klastrowi (lagom-gke)
-    2. W polu **s****trefa** wybierz jeden z regionów `europe`
+    2. W polu **strefa** wybierz jeden z regionów `europe`
     3. W polu **Pule węzłów** wybierz węzły `n1-standard-2` 
     4. Kliknij więcej opcji i włącz **autoskalowanie węzłów** podając od 2 do 4 węzłów
     5. Kliknij utwórz klaster
@@ -174,6 +174,7 @@ https://github.com/bartosz822/lagom-k8s/blob/master/deploy/cassandra.yml
 **ingress.yml**
 W pliku ingress.yml znajduje się konfiguracja load balancera, do którego przypisany będzie zewnętrzny adres ip, który będzie wejściem do naszej aplikacji.
 
+https://github.com/bartosz822/lagom-k8s/blob/master/deploy/ingress.yml
 
 ## Deployment
 
@@ -198,7 +199,7 @@ Po wykonanu komend przejdź do zakładki `Kubernetes Engine` → `Obciążenia` 
 ## Testowanie działania aplikacji
 1. Testowanie aplikacji `hello`
 
-Przejdź do zakładki `Usługi` ```i ruch przychodzący` i skopiuj publiczny adres ip usługi `hello-ingress`.
+Przejdź do zakładki `Usługi i ruch przychodzący` i skopiuj publiczny adres ip usługi `hello-ingress`.
 
 ![](https://paper-attachments.dropbox.com/s_993353410A63174E27B5DFE028DF6A2B837D353ADF11471BBD5D0FB1CFE9D6A5_1578831146428_image.png)
 
